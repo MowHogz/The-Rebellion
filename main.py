@@ -4,6 +4,7 @@ from game import game
 import time 
 import threading
 from flask_cors import CORS
+from output import player_info,Send_To_Client as game_info
 
 from flask import Flask, escape, request
 
@@ -15,23 +16,14 @@ def press(d):
 game = game(50,100,2)
 
 d = []
-def testrun(game):
-    string = ""
-    string += str(game.players)
-    for i in range(game.players):
-        string += player_info(game.rebels[i])
-    return string
-def player_info(rebel):
-    string = 'b'
-    string += '0000'
-    string += '0000'
-    y = str(rebel.y)
-    string += str(int(4-len(y)) * '0') + y
-    x = str(rebel.x)
-    string += str(int(4-len(y)) * '0') + y
-    health = str(rebel.health)
-    string += str(int(4-len(health)) * '0') + health
-    return string
+def output(game,mat,height,width):
+    text = ""
+    text += "Row: {} Col:{}".format(game.rebels[0].y,game.rebels[0].x)
+    for row in range(height):
+        text += "<br>"
+        for col in range(width):
+            text += mat[row][col].t
+    return (text)
 
 game.round()
 def round():
@@ -42,14 +34,16 @@ def round():
 
 r = threading.Thread(target=(round))
 r.start()
-
+@app.route('/update')
+def update():
+    return output(game,game.map,game.height,game.width)
 #sends info about moving targets to /loc
 @app.route('/loc')
 def hello():
     print ("Sent info")
-    return testrun(game)
+    return game_info(game)
 
-@app.route('/update/<player>/<keys>')
+@app.route('/input/<player>/<keys>')
 def keylogger(player,keys):
     print ("for Player: {} got keys: {}".format(player,keys))
     for key in keys:
