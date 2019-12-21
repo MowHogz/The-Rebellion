@@ -1,0 +1,16 @@
+
+
+stuff to send between me and shlomo 
+number of players
+'boy/girl'
+'color' 0 - right 1 - left
+'position' jump,fireball,kama,blonde,punch,stand,left punch
+y
+x
+health
+number of balls
+0 - position/look
+y
+x
+
+
