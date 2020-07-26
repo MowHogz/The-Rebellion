@@ -2,16 +2,17 @@ import time
 from bullet import bullet
 from space import space
 class dude(space):
-    def __init__(self,game,y,x,health):
+    def __init__(self,game,y,x,health,id):
+        self.id = id
         self.full = True
         self.t = '*'
         self.game = game
         self.y = y
         self.x = x
-        self.height = 3
-        self.width = 2
-        self.speed = 1
-        self.jump_height = 10
+        self.height = 100
+        self.width = 50
+        self.speed = 25
+        self.jump_height = 150
         self.jump_momentum= 0
         self.double_jump = False #indicates if player can make a double jump 
         self.health = health
@@ -52,11 +53,21 @@ class dude(space):
         if self.jump_momentum > 0:
             self.jump_momentum -= self.speed
             new_y -= self.speed
-            if self.jump_momentum > 5:
-                self.jump_momentum -= self.speed
-                new_y -= self.speed
-        elif not self.standing():
+            
+            
+        elif not self.standing(): #falling 
             new_y += self.speed
+            if self.can_insert(new_y,new_x):
+                pass
+            else: #if the distance we fall (per frame/round) is larger than the distance between us and the floor 
+                while not self.can_insert(new_y,new_x):
+                    new_y -= 1
+
+
+
+
+
+
         if self.can_insert(new_y,new_x):#if player if on direction
             self.y = new_y
             self.x = new_x

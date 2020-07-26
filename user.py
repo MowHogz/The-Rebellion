@@ -1,3 +1,4 @@
+from output import Send_To_Client
 import os
 def Printer(game,mat,height,width):
     text = ""
@@ -6,5 +7,6 @@ def Printer(game,mat,height,width):
         text += "\n"
         for col in range(width):
             text += mat[row][col].t
+    text += Send_To_Client(game)
     os.system('clear')
     print (text)

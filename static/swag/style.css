@@ -1,0 +1,20 @@
+
+    
+#box{
+    /*width: 300px;
+    border: 15px solid green;
+    padding: 50px;
+    margin: 20px;*/
+}
+.player{
+    /*
+    border: 10px green;
+    padding: 10px
+    */
+    position: absolute;
+    background-color: black;
+    color: white;
+    width: 200px;
+    
+    
+}
